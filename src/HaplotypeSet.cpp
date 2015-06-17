@@ -232,20 +232,22 @@ int HaplotypeSet::LoadReferenceSNPsFromVcf (String& vcf, StringArray & markerLis
 
 	  if(!chr) chr=atof(record.getChromStr());
 
-      chromPosString = record.getChromStr();
-      chromPosString += ":";
-      chromPosString += record.get1BasedPosition();
-      ref=record.getRefStr();
-      alt=record.getAltStr();
+      if(!rs || (chromPosString = record.getIDStr()) == ".") {
+          chromPosString = record.getChromStr();
+          chromPosString += ":";
+          chromPosString += record.get1BasedPosition();
+          ref=record.getRefStr();
+          alt=record.getAltStr();
 
-      //Indel
-		if (ref.Length() > 1 || alt.Length() > 1)
-		{
-		  String extraIndelAllele = ref+"_"+alt;
-		  int extraLength = extraIndelAllele.Length();
-		  if (extraLength > 5) extraLength = 5;
-		  chromPosString = chromPosString+":"+extraIndelAllele.SubStr(0,extraLength);
-		}
+          //Indel
+          if (ref.Length() > 1 || alt.Length() > 1)
+          {
+              String extraIndelAllele = ref+"_"+alt;
+              int extraLength = extraIndelAllele.Length();
+              if (extraLength > 5) extraLength = 5;
+              chromPosString = chromPosString+":"+extraIndelAllele.SubStr(0,extraLength);
+    	  }
+      }
 
       markerList.Add(chromPosString);
 
