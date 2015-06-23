@@ -221,7 +221,7 @@ int HaplotypeSet::LoadReferenceSNPsFromVcf (String& vcf, StringArray & markerLis
 
   // Read the variant ids into a StringArray.
   VcfRecord record;
-  StringArray chromPosArray;
+  StringArray chromPosArray,id;
   String chromPosString,ref,alt;
 
   while(reader.readRecord(record))
@@ -232,7 +232,8 @@ int HaplotypeSet::LoadReferenceSNPsFromVcf (String& vcf, StringArray & markerLis
 
 	  if(!chr) chr=atof(record.getChromStr());
 
-      if(!rs || (chromPosString = record.getIDStr()) == ".") {
+      id.ReplaceTokens(record.getIDStr(), ":");
+      if(!rs || (id[0] == record.getChromStr())) {
           chromPosString = record.getChromStr();
           chromPosString += ":";
           chromPosString += record.get1BasedPosition();
@@ -247,6 +248,8 @@ int HaplotypeSet::LoadReferenceSNPsFromVcf (String& vcf, StringArray & markerLis
               if (extraLength > 5) extraLength = 5;
               chromPosString = chromPosString+":"+extraIndelAllele.SubStr(0,extraLength);
     	  }
+      } else {
+          chromPosString = id[0];
       }
 
       markerList.Add(chromPosString);
