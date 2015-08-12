@@ -1037,16 +1037,18 @@ void HaplotypeSet::LoadVcf(String file, String exclude)
 
         	haplotypeIndex ++;
 
+                if (record.getGT(i, 1) != VcfGenotypeSample::INVALID_GT) {
    		    alleles = record.getAlleles(record.getGT(i, 1));
-        	if(indel){
-        	   if(strlen(alleles)==reflen)
-        		   haplotypes[haplotypeIndex][marker] = 7;
-        	   else
-        		   haplotypes[haplotypeIndex][marker] = alttype;
-        	}
-        	else
-   		    haplotypes[haplotypeIndex][marker] = Base2Int(alleles[0],1);
-   		    haplotypeIndex ++;
+        	    if(indel){
+        	       if(strlen(alleles)==reflen)
+        	    	       haplotypes[haplotypeIndex][marker] = 7;
+        	       else
+        		       haplotypes[haplotypeIndex][marker] = alttype;
+        	    }
+        	    else
+   		        haplotypes[haplotypeIndex][marker] = Base2Int(alleles[0],1);
+   		        haplotypeIndex ++;
+                }
 
         }
         // process the exclude index if not -1
@@ -1071,17 +1073,19 @@ void HaplotypeSet::LoadVcf(String file, String exclude)
 
         	haplotypeIndex ++;
 
+                if (record.getGT(i, 1) != VcfGenotypeSample::INVALID_GT) {
    		    alleles = record.getAlleles(record.getGT(i, 1));
-        	if(indel){
-        	   if(strlen(alleles)==reflen)
-        		   haplotypes[haplotypeIndex][marker] = 7;
-        	   else
-        		   haplotypes[haplotypeIndex][marker] = alttype;
-        	}
-        	else
-   		     haplotypes[haplotypeIndex][marker] = Base2Int(alleles[0],1);
+        	    if(indel){
+        	       if(strlen(alleles)==reflen)
+        		       haplotypes[haplotypeIndex][marker] = 7;
+        	       else
+        		       haplotypes[haplotypeIndex][marker] = alttype;
+        	    }
+        	    else
+   		         haplotypes[haplotypeIndex][marker] = Base2Int(alleles[0],1);
 
-        	haplotypeIndex ++;
+        	    haplotypeIndex ++;
+                }
 
 
         }
