@@ -358,12 +358,12 @@ int main(int argc, char ** argv)
 	   String marker;
 	   if(HaplotypeSet::corestartposition > 0)
 	    {
-		   marker.printf("%0.0f:%0.0f",HaplotypeSet::chr,HaplotypeSet::corestartposition);
+		   //marker.printf("%0.0f:%0.0f",HaplotypeSet::chr,HaplotypeSet::corestartposition);
 		   //printf("Core-Start: %s\n",marker.c_str());
-		   outStartIndex = referenceHash.Integer(marker);
+		   outStartIndex = referenceHash.Integer(HaplotypeSet::corestartmarker);
 	    }
-	   marker.printf("%0.0f:%0.0f",HaplotypeSet::chr,HaplotypeSet::coreendposition);
-	   outStopIndex = referenceHash.Integer(marker);
+	   // marker.printf("%0.0f:%0.0f",HaplotypeSet::chr,HaplotypeSet::coreendposition);
+	   outStopIndex = referenceHash.Integer(HaplotypeSet::coreendmarker);
 	   if(outStopIndex == -1 )
 		   outStopIndex = stopIndex;
 	   //printf("Core-Stop: %s\n",marker.c_str());

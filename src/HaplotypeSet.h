@@ -44,6 +44,8 @@ class HaplotypeSet
       static double corestartposition;
       static double coreendposition;
       static double window;
+      static String corestartmarker;
+      static String coreendmarker;
 
 	  static int LoadReferenceSNPsFromVcf (const char * filename, StringArray & markerList, bool rs);
 	  static int LoadReferenceSNPsFromVcf (String& vcf, StringArray & markerList, bool rs, String exclude);

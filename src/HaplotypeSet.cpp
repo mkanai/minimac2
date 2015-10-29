@@ -16,6 +16,8 @@ double HaplotypeSet::startposition = 0.0;
 double HaplotypeSet::endposition = 300000000.0; //300Mb
 double HaplotypeSet::corestartposition = 0.0;
 double HaplotypeSet::coreendposition = 300000000.0; //300Mb
+String HaplotypeSet::corestartmarker = "";
+String HaplotypeSet::coreendmarker = "";
 String HaplotypeSet::schr ="20";
 String HaplotypeSet::mimicArray ="";
 
@@ -254,10 +256,14 @@ int HaplotypeSet::LoadReferenceSNPsFromVcf (String& vcf, StringArray & markerLis
 
       markerList.Add(chromPosString);
 
-      if (record.get1BasedPosition() >= (HaplotypeSet::startposition+HaplotypeSet::window) && HaplotypeSet::startposition > 0 && HaplotypeSet::corestartposition == 0.0)
+      if (record.get1BasedPosition() >= (HaplotypeSet::startposition+HaplotypeSet::window) && HaplotypeSet::startposition > 0 && HaplotypeSet::corestartposition == 0.0) {
     	  HaplotypeSet::corestartposition = record.get1BasedPosition();
-      if (record.get1BasedPosition() <= (HaplotypeSet::endposition-HaplotypeSet::window))
+    	  HaplotypeSet::corestartmarker = chromPosString;
+      }
+      if (record.get1BasedPosition() <= (HaplotypeSet::endposition-HaplotypeSet::window)) {
     	  HaplotypeSet::coreendposition = record.get1BasedPosition();
+    	  HaplotypeSet::coreendmarker = chromPosString;
+      }
   }
 
   // Close the file and reopen in to process the haplotypes.
